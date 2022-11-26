@@ -34,6 +34,16 @@ namespace Bonsal_Gardent.Controllers
         {
             return View();
         }
+
+        public IActionResult Logout()
+        {
+
+            HttpContext.Session.Remove("idUser");
+            HttpContext.Session.Remove("name");
+            HttpContext.Session.Remove("role");
+            return RedirectToAction("Login", "Home");
+        }
+
         public IActionResult Sign_up(string? errorMessage = null)
         {
             ViewData["mes"] = errorMessage;

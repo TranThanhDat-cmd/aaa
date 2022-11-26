@@ -105,7 +105,7 @@ namespace Bonsal_Gardent.Controllers
                 return RedirectToAction("Login", "Home");
             }
             var comments = await _context.CommentProducts.Include(x => x.AccCustomer).
-                Include(x => x.Product).Where(x => x.AccManagerId != null).ToListAsync();
+                Include(x => x.Product).Where(x => x.IsApprove == false).OrderByDescending(x => x.CreatedAt).ToListAsync();
             return View(comments);
         }
         public IActionResult Product()
@@ -115,6 +115,25 @@ namespace Bonsal_Gardent.Controllers
                 return RedirectToAction("Login", "Home");
             }
             return View();
+        }
+
+        public async Task<IActionResult> Approval(int? id)
+        {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            var gardent_BonsalContext = _context.Products.Include(p => p.Category).Include(p => p.Type);
+            return View(await gardent_BonsalContext.ToListAsync());
         }
     }
 }
