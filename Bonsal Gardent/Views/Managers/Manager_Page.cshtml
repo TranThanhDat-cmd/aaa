@@ -173,7 +173,7 @@
         <div class="row">
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
-                    <div class="card-body">Number User: @Model.totalUser</div>
+                    <div class="card-body">Number User: @Model.totalUser.Count</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a asp-area="" asp-controller="Managers" asp-action="Manager_Account" class="small text-white stretched-link">View Num_User</a>
                     </div>
@@ -181,7 +181,7 @@
             </div>
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-warning text-white mb-4">
-                    <div class="card-body">Sell: @Model.totalComment</div>
+                    <div class="card-body">Sell: @Model.totalSell.Count</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a asp-area="" asp-controller="Managers" asp-action="List_Bill" class="small text-white stretched-link">View Sell/Bill</a>
                     </div>
@@ -189,7 +189,7 @@
             </div>
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-success text-white mb-4">
-                    <div class="card-body">Num Product: @Model.totalProduct</div>
+                    <div class="card-body">Num Product: @Model.totalProduct.Count</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a asp-area="" asp-controller="Managers" asp-action="Product" class="small text-white stretched-link">View Product</a>
                     </div>
@@ -197,7 +197,7 @@
             </div>
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-danger text-white mb-4">
-                    <div class="card-body">Submit Comment: @Model.totalComment</div>
+                    <div class="card-body">Submit Comment: @Model.totalComment.Count</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a asp-area="" asp-controller="Managers" asp-action="List_Comment" class="small text-white stretched-link">View Comment</a>
                     </div>
@@ -212,22 +212,22 @@
             <div class="card-body">
                 <canvas id="myChart" style="width:100%;max-width:600px">
                     <script>
-                        var xValues = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+                        var xValues = [@DateTime.Now.Day, @DateTime.Now.AddDays(-1).Day, @DateTime.Now.AddDays(-2).Day, @DateTime.Now.AddDays(-3).Day, @DateTime.Now.AddDays(-4).Day, @DateTime.Now.AddDays(-5).Day, @DateTime.Now.AddDays(-6).Day, @DateTime.Now.AddDays(-7).Day, @DateTime.Now.AddDays(-8).Day, @DateTime.Now.AddDays(-9).Day];
 
                         new Chart("myChart", {
                             type: "line",
                             data: {
                                 labels: xValues,
                                 datasets: [{
-                                    data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+                                    data: [100, 20, 20, 10, 80, 10, 40, 25, 16, 10],
                                     borderColor: "red",
                                     fill: false
                                 }, {
-                                    data: [1600, 1700, 1700, 1900, 2000, 2700, 4000, 5000, 6000, 7000],
+                                    data: [10, 40, 25, 16, 10, 10, 40, 25, 16, 10],
                                     borderColor: "green",
                                     fill: false
                                 }, {
-                                    data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
+                                    data: [25, 16, 10, 10, 40, 25, 16, 10, 20, 10],
                                     borderColor: "blue",
                                     fill: false
                                 }]

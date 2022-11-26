@@ -94,11 +94,9 @@ namespace Bonsal_Gardent.Controllers
 
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Manager_Product", "Managers");
  
-            ViewData["CategoryId"] = new SelectList(_context.Categogies, "Id", "Id", product.CategoryId);
-            ViewData["TypeId"] = new SelectList(_context.Types, "Id", "Id", product.TypeId);
-            return View(product);
+
         }
 
         // GET: Products/Edit/5

@@ -62,10 +62,10 @@ namespace Bonsal_Gardent.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            var totalUser = await _context.AccCustomers.CountAsync(); 
-            var totalSell = await _context.CustomerOrders.CountAsync();
-            var totalProduct = await _context.Products.CountAsync();
-            var totalComment = await _context.CommentProducts.CountAsync();
+            var totalUser = await _context.AccCustomers.ToListAsync(); 
+            var totalSell = await _context.CustomerOrders.ToListAsync();
+            var totalProduct = await _context.Products.ToListAsync();
+            var totalComment = await _context.CommentProducts.ToListAsync();
             return View(new { totalUser, totalSell, totalProduct, totalComment });
 
             //Income
