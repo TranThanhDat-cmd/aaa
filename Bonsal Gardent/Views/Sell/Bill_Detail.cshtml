@@ -1,87 +1,166 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-
-}
+﻿
 <style>
 
 </style>
 
 <body>
     <h2>Manager Bill :</h2>
-    <div class="container-fluid admin-artcles" style="text-align:center">
-        <!-- DataTable -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 style="color:darkolivegreen">Your Bill</h6>
-            </div>
+    @* <div class="container-fluid admin-artcles" style="text-align:center">
+    <!-- DataTable -->
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+    <h6 style="color:darkolivegreen">DataTables Bill</h6>
+    </div>
 
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Place
-                                </th>
-                                <th>
-                                    Address
-                                </th>
-                                <th>
-                                    Price
-                                </th>
-                                <th>
-                                    Category
-                                </th>
-                                <th>
-                                    Amount
-                                </th>
-                                <th>
-                                    Type
-                                </th>
-                               
-                            </tr>
-                        </thead>
-                       @* @foreach (var item in Model)
+    <div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+    <tr>
+    <th>
+    User (Customer)
+    </th>
+    <th>
+    Name Product
+    </th>
+    <th>
+    Time Checkout
+    </th>
+    <th>
+    Amount
+    </th>
+    <th>
+    Money
+    </th>
+    <th>
+    Option
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    {
+    <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    Detail |
+    Delete.
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table>
+    </div>
+    </div>
+    <div class="card-header py-3">
+    <p>
+
+    </p>
+    </div>
+    </div>
+    </div>*@
+    <div class="container-fluid admin-artcles" style="text-align:center">
+        <div class="col-lg-12">
+            <div class="shoping__cart__table">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="background-color: white">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>User (Customer)</th>
+                            <th>Total money</th>
+                            <th>Total amount</th>
+                            <th>Time checkout</th>
+                            <th>View detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    <input type="hidden" value="@item.Id" name="OrderId" />
+                                    <p>Đơn hàng @item.Id</p>
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Place)
+                                    <p>@item.CustomerName</p>
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Address)
+                                    @item.TotalMoney.ToString("0#,##0")đ
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Price)
+                                    @item.TotalAmount
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
+                                    @item.CreateAtTime.ToString("dd-MM-yyyy HH:mm")
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Category.Name)
+                                    <a href="javascript:{}" id="order-@item.Id" onclick="showOrderDetails(@item.Id)"><span class="fa fa fa-caret-down"></span></a>
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Type.Name)
-                                </td>
-                                
                             </tr>
-                        }*@
+                            <tr style="display: none">
+                                <td colspan="1"></td>
+                                <td colspan="4">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th>Amount</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var i in item.Items)
+                                            {
+                                                <tr>
+                                                    <td style="text-align: center !important;width:40% !important">
+                                                        <input type="hidden" value="@i.Product.Id" name="ProductId" />
+                                                        <input type="hidden" value="@i.Id" name="CartId" />
 
-                    </table>
-                </div>
-            </div>
-            <div class="card-header py-3">
-                <p>
-
-                </p>
+                                                        @i.Product.Name
+                                                    </td>
+                                                    <td>
+                                                        @(i.Product.Price) đ
+                                                    </td>
+                                                    <td>
+                                                        <div class="quantity">
+                                                            <div>
+                                                                <input type="text" disabled value="@i.Amount" name="Quantity"
+                                                               style="padding: 4px 8px;width: 50%;text-align: center;" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @((int.Parse(i.Product.Price) * i.Amount).ToString("0#,##0"))đ
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td colspan="1"></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+    <script>
+        function showOrderDetails(id) {
+            var content = $(`#order-${id}`).parent().parent().next()
+            if (content.css('display') == 'none')
+                content.css('display', '')
+            else
+                content.css('display', 'none')
+        }
+    </script>
 </body>

@@ -1,4 +1,5 @@
-﻿using Bonsal_Gardent.Models;
+﻿using Bonsal_Gardent.Model;
+using Bonsal_Gardent.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -98,13 +99,51 @@ namespace Bonsal_Gardent.Controllers
 
         public IActionResult Bill_Detail()
         {
-            return View();
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            var accId = int.Parse(HttpContext.Session!.GetString("idUser").ToString());
+            var orders = _context.CustomerOrders.Where(x => x.AccCustomerId == accId).Include(x => x.OrderDetails).ThenInclude(x => x.Product)
+                .Include(x => x.AccCustomer).OrderByDescending(x => x.CreateAtTime).ToList();
+            var result = new List<OrderViewModel>();
+            foreach (var order in orders)
+            {
+                result.Add(new OrderViewModel
+                {
+                    Id = order.Id,
+                    AccCustomerId = order.AccCustomerId,
+                    CustomerName = order.AccCustomer.Name,
+                    CreateAtTime = order.CreateAtTime,
+                    TotalAmount = (long)order.OrderDetails.Sum(x => x.Amount),
+                    TotalMoney = (long)order.OrderDetails.Sum(x => x.Amount * Convert.ToInt64(x.Product.Price)),
+                    Items = order.OrderDetails
+                });
+            }
+            return View(result);
         }
 
         //Customer
         public IActionResult User_Bill()
         {
-            return View();
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            var accId = int.Parse(HttpContext.Session!.GetString("idUser").ToString());
+            var carts = _context.Carts.Where(x => x.AccCustomerId == accId).Include(x => x.Product).ToList();
+
+            return View(new
+            {
+                carts = carts,
+                sum = carts.Sum(x => x.Amount * double.Parse(x.Product.Price))
+            });
 
         }
     }
