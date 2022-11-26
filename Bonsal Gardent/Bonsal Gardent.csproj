@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\image\NewFolder\**" />
-    <Content Remove="wwwroot\image\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\image\NewFolder\**" />
-    <None Remove="wwwroot\image\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Models\f555g5yx.5kx~" />
   </ItemGroup>
 
@@ -33,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\image\Pic\" />
     <Folder Include="wwwroot\image\Pic\" />
   </ItemGroup>
 

@@ -101,19 +101,7 @@
 
 </style>
 <body>
-    <div class="sidenav">
-        <button class="dropdown-btn">
-            List Category  ☰
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-            @foreach (var item in Model.categories)
-            {
-                <a asp-action="Tool" asp-route-id="@item.Id">@item.Name</a>
-            }
-
-        </div>
-    </div>
+    
 
 
     <div id="product-wrap">

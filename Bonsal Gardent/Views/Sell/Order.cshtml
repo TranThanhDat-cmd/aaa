@@ -69,9 +69,10 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                @foreach (var item in (List<Cart>)Model)
+
+                            @foreach (var item in (List<Cart>)Model.carts)
                                 {
+                                <tr>
                                     <td class="p-3" style="width: 200px">
                                         <div class="media align-items-center">
                                             <img src="/image/Pic/Pictures.First().Path" class="d-block ui-w-40 ui-bordered mr-4" alt="">
@@ -85,8 +86,9 @@
                                     <td class="align-middle p-4"><input type="number" class="form-control text-center" value="@item.Amount"></td>
                                     <td class="text-right font-weight-semibold align-middle p-4">@((Double.Parse(item.Product.Price) * item.Amount)) VND</td>
                                     <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
+                                </tr>
                                 }
-                            </tr>
+                            
 
                         </tbody>
                     </table>
@@ -99,7 +101,7 @@
 
                         <div class="text-right mt-4">
                             <label class="text-muted font-weight-normal m-0">Total price</label>
-                            <div class="text-large"><strong>$1164.65</strong></div>
+                            <div class="text-large"><strong>@(Model.sum) VND</strong></div>
                         </div>
                     </div>
                 </div>

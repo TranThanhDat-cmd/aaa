@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Gardent_BonsalContext>(opt => opt.
-    UseSqlServer("Data Source=DESKTOP-1CCEOVD\\SQLEXPRESS;Initial Catalog=Gardent_Bonsal;Integrated Security=True"));
+    UseSqlServer("Data Source=DESKTOP-FLG4B1O\\SQLEXPRESS;Initial Catalog=Gardent_Bonsal;Integrated Security=True"));
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
