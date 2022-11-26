@@ -73,6 +73,8 @@ namespace Bonsal_Gardent.Controllers
                     ProductId = x.ProductId,
                 }).ToList()
             });
+
+            _context.Carts.RemoveRange(carts);
             _context.SaveChanges();
 
             return RedirectToAction("Bill_Detail");
@@ -145,6 +147,36 @@ namespace Bonsal_Gardent.Controllers
                 sum = carts.Sum(x => x.Amount * double.Parse(x.Product.Price))
             });
 
+        }
+
+        public IActionResult UpdateCart(int id, int amount)
+        {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            var accId = int.Parse(HttpContext.Session!.GetString("idUser").ToString());
+            var carts = _context.Carts.Where(x => x.AccCustomerId == accId && x.ProductId == id).First();
+            carts.Amount = amount;
+            _context.SaveChanges();
+
+            return RedirectToAction("User_Bill");
+        }
+
+        public IActionResult DeleteCart(int id)
+        {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            var accId = int.Parse(HttpContext.Session!.GetString("idUser").ToString());
+            var carts = _context.Carts.Where(x => x.Id == id).First();
+            _context.Carts.RemoveRange(carts);
+            _context.SaveChanges();
+
+            return RedirectToAction("User_Bill");
         }
     }
 }

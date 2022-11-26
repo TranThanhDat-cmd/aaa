@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
- 
+
 using Bonsal_Gardent.Models;
 
 namespace Bonsal_Gardent.Controllers
@@ -207,46 +207,42 @@ namespace Bonsal_Gardent.Controllers
             return RedirectToAction("Profile", "Home");
         }
 
-        /*public async Task<IActionResult> Delete_for_Customer(int? id)
+        public async Task<IActionResult> Delete_for_Customer(int? id)
         {
-            if (id == null || _context.AccCustomers == null)
-            {
-                return NotFound();
-            }
-
             var accCustomer = await _context.AccCustomers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (accCustomer == null)
-            {
-                return NotFound();
-            }
-
-            return View(accCustomer);
-        }
-
-        // POST: AccCustomers/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete_for_Customer(int id)
-        {
-            if (_context.AccCustomers == null)
-            {
-                return Problem("Entity set 'Gardent_BonsalContext.AccCustomers'  is null.");
-            }
-            var accCustomer = await _context.AccCustomers.FindAsync(id);
             if (accCustomer != null)
             {
-                _context.AccCustomers.Remove(accCustomer);
+                _context.Remove(accCustomer);
+                _context.SaveChanges();
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Login", "Home");
         }
 
-        private bool AccCustomerExists(int id)
-        {
-            return _context.AccCustomers.Any(e => e.Id == id);
-        }
-        */
+        //// POST: AccCustomers/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete_for_Customer(int id)
+        //{
+        //    if (_context.AccCustomers == null)
+        //    {
+        //        return Problem("Entity set 'Gardent_BonsalContext.AccCustomers'  is null.");
+        //    }
+        //    var accCustomer = await _context.AccCustomers.FindAsync(id);
+        //    if (accCustomer != null)
+        //    {
+        //        _context.AccCustomers.Remove(accCustomer);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //private bool AccCustomerExists(int id)
+        //{
+        //    return _context.AccCustomers.Any(e => e.Id == id);
+        //}
+        //*/
     }
 }

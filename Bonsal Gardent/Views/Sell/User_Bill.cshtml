@@ -83,9 +83,15 @@
                                         </div>
                                     </td>
                                     <td class="text-right font-weight-semibold align-middle p-4">@item.Product.Price VND</td>
-                                    <td class="align-middle p-4"><input type="number" class="form-control text-center" value="@item.Amount"></td>
+                                    <td class="align-middle p-4">
+                                        <form asp-action="UpdateCart" asp-controller="Sell">
+                                            <input name="amount" type="number" class="form-control text-center" value="@item.Amount">
+                                            <input name="id" type="hidden" class="form-control text-center" value="@item.ProductId">
+                                            <input type="submit" value="Update" >
+                                        </form>
+                                    </td>
                                     <td class="text-right font-weight-semibold align-middle p-4">@((Double.Parse(item.Product.Price) * item.Amount)) VND</td>
-                                    <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
+                                    <td class="text-center align-middle px-0"><a asp-action="DeleteCart" asp-controller="Sell" asp-route-id= "@item.Id"  class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
                                 </tr>
                             }
 
