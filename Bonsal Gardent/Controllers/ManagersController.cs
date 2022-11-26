@@ -20,12 +20,20 @@ namespace Bonsal_Gardent.Controllers
         //Manager
         public IActionResult Manager_View()
         {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
 
         public IActionResult Manager_Account()
         {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var admin = _context.AccManagers.Where(x => x.Type == 1).ToList();
             var staff = _context.AccManagers.Where(x => x.Type == 2).ToList();
             var customer = _context.AccCustomers.ToList();
@@ -40,12 +48,20 @@ namespace Bonsal_Gardent.Controllers
 
         public async Task<IActionResult> Manager_Product()
         {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var gardent_BonsalContext = _context.Products.Include(p => p.Category).Include(p => p.Type);
             return View(await gardent_BonsalContext.ToListAsync());
         }
 
         public async Task<IActionResult> Manager_Page()
         {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var totalUser = await _context.AccCustomers.CountAsync(); 
             var totalSell = await _context.CustomerOrders.CountAsync();
             var totalProduct = await _context.Products.CountAsync();
@@ -59,18 +75,45 @@ namespace Bonsal_Gardent.Controllers
         //Income
         public async Task<IActionResult> List_Bill()
         {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var orders = await _context.CustomerOrders.Include(x => x.OrderDetails).ThenInclude(x => x.Product)
-                .Include(x => x.AccCustomer).ToListAsync();
-            //var a = orders.Select(x => new { x.Id, x.})
-            return View(new { orders, });
+                .Include(x => x.AccCustomer).OrderByDescending(x => x.CreateAtTime).ToListAsync();
+            var result = new List<OrderViewModel>();
+            foreach (var order in orders)
+            {
+                result.Add(new OrderViewModel
+                {
+                    Id = order.Id,
+                    AccCustomerId = order.AccCustomerId,
+                    CustomerName = order.AccCustomer.Name,
+                    CreateAtTime = order.CreateAtTime,
+                    TotalAmount = (long)order.OrderDetails.Sum(x => x.Amount),
+                    TotalMoney = (long)order.OrderDetails.Sum(x => x.Amount * Convert.ToInt64(x.Product.Price)),
+                    Items = order.OrderDetails
+                });
+            }
+            return View(result);
 
         }
-        public IActionResult List_Comment()
+        public async Task<IActionResult> List_Comment()
         {
-            return View();
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            var comments = await _context.CommentProducts.Include(x => x.AccCustomer).
+                Include(x => x.Product).Where(x => x.AccManagerId != null).ToListAsync();
+            return View(comments);
         }
         public IActionResult Product()
         {
+            if (HttpContext.Session == null || HttpContext.Session.GetString("idUser") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
     }
