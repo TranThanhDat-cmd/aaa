@@ -1,0 +1,147 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Bonsal_Gardent</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Bonsal_Gardent.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body{
+            background-color: #78ebab;
+        }
+        .fa{
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body>
+    <header style="position: sticky;
+                top: 0;
+                z-index: 1020;">
+        <table id="header" style="width:100%;
+                                text-align:center;
+                                padding-top:4px;
+                                background-color: green;
+                                height:10%;">
+            <tbody>
+                <tr>
+                    <td class="logo" style="width:12%"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/image/2022-09-24_140746.png" alt="" height="90" width="90"></a></td>
+                    <td style="text-align:center"><h1>Gardent Bonsai</h1><h3>The tree environment will be better for you</h3></td>
+                    @if(Context.Session.GetString("name") == null){
+                        <td style="left:20%"><a class="nav-link button" asp-area="" asp-controller="Home" asp-action="Login">Login</a></td>
+                    }else{
+                        <td style="left:20%"><a class="nav-link button" asp-controller="Home" asp-action="Profile">@Context.Session.GetString("name")!.ToString()</a></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                        <li>
+                            _
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Product">Product</a>
+                        </li>
+                    </ul>
+
+
+
+                    <ul class="navbar-nav">
+                        
+                        @if (Context.Session.GetString("role") != null && Context.Session.GetString("role")!.ToString() != "Customer")
+                        {
+                            <li class="nav-item">
+
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Managers" asp-action="Manager_View">Manager</a>
+                            
+                            
+                            </li>
+                        }
+                        else if (Context.Session.GetString("role") != null && Context.Session.GetString("role")!.ToString() == "Customer")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Sell" asp-action="Order">
+                                    <i style="font-size:24px" class="fa">&#xf07a;</i>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <input style="padding: 1px 50px; margin: 4px 0;" type="text" placeholder="Search..">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container" style="max-width: 1500px;">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Bonsal_Gardent - <a id="clock"></a>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function refrClock() {
+            var d = new Date();
+            var s = d.getSeconds();
+            var m = d.getMinutes();
+            var h = d.getHours();
+            var day = d.getDay();
+            var date = d.getDate();
+            var month = d.getMonth();
+            var year = d.getFullYear();
+            var days = new Array("Sunday", "Monday", "Tueday", "Wenday", "Thusday", "Friday", "Satday");
+            var months = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+            var am_pm;
+            if (s < 10) {
+                s = "0" + s
+            }
+            if (m < 10) {
+                m = "0" + m
+            }
+            if (h > 12) {
+                h -= 12;
+                AM_PM = "PM"
+            }
+            else {
+                AM_PM = "AM"
+            }
+            if (h < 10) {
+                h = "0" + h
+            }
+            document.getElementById("clock").innerHTML = days[day] + ", Day " + date + "/" + months[month] + "/" + year + " This time " + " [" + h + ":" + m + ":" + s + "] " + AM_PM;
+            setTimeout("refrClock()", 1000);
+        }
+        refrClock();
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

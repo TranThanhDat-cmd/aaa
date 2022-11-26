@@ -1,0 +1,217 @@
+﻿@using Bonsal_Gardent.Models
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<style>
+
+</style>
+
+<body>
+    <h2>Manager Account :</h2>
+    <div class="container-fluid admin-artcles" style="text-align:center">
+        <!-- DataTable -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <h6 style="color:darkolivegreen">DataTables Account Admin :</h6>
+
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Password
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone
+                                </th>
+                                <th>
+                                   Address
+                                </th>
+                                <th>
+                                    Option
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in (List<AccManager>)Model.admin)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Password)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Phone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="AccManagers" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-controller="AccManagers" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-controller="AccManagers" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-header py-3">
+                <p>
+                    <a asp-controller="AccManagers" asp-action="Create">Create New</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- DataTable -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <h6 style="color:darkolivegreen">DataTables Account Staff :</h6>
+
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Password
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone
+                                </th>
+                                <th>
+                                    Address
+                                </th>
+                                <th>
+                                    Option
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in (List<AccManager>)Model.staff)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Password)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Phone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="AccManagers" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-controller="AccManagers" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-controller="AccManagers" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-header py-3">
+                <p>
+                    <a asp-controller="AccManagers" asp-action="Create">Create New</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- DataTable -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <h6 style="color:darkolivegreen">DataTables Account Customer:</h6>
+
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone
+                                </th>
+                                <th>
+                                    Address
+                                </th>
+                                <th>
+                                    Option
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in (List<AccCustomer>)Model.customer)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Phone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="AccCustomer" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-header py-3">
+                Not edit delete and update for this type Account !
+            </div>
+        </div>
+    </div>
+</body>

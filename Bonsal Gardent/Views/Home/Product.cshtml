@@ -1,0 +1,99 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+<style>
+    #cell-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        width: 100%;
+        position: relative;
+        margin-top: 2em;
+    }
+
+    * {
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    #Tree {
+        background-image: url(image/);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 0 50%;
+    }
+
+    #Tool {
+        background-image: url(image/);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 0 50%;
+    }
+
+    .cell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3.5em;
+        font-weight: bold;
+        width: 30%;
+        height: 300px;
+        position: relative;
+        text-shadow: 0.05em 0.05em 0.1em black;
+        border-radius: 0.2em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+
+        .cell::before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            border-radius: 0.2em;
+        }
+
+    body.dark a:visited {
+        color: #c896ff;
+    }
+
+    body.dark a {
+        color: #63b8ee;
+    }
+
+    .page-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        cursor: pointer;
+        text-decoration: none;
+        color: white !important;
+        padding: 0 0.5em;
+    }
+
+</style>
+<body>
+    <h2 style="text-align:center">Product you choose:</h2>
+    <div id="cell-container">
+        <div id="Tool" class="cell">
+            <a class="page-link" asp-area="" asp-controller="Home" asp-action="Tool">Tools tree planting</a>
+        </div>
+
+        <div class="cell" style="color:lime">
+            <h5>In your garden you need to have two things that are planting tools and ornamental plants. If you want to see the tools for making plants click on the right hand side of the screen, but if you want to buy bonsai, click on the left side screen.</h5>
+        </div>
+
+        <div id="Tree" class="cell">
+            <a class="page-link" asp-area="" asp-controller="Home" asp-action="Tree">Tree and Bonsal</a>
+        </div>
+
+    </div>
+</body>

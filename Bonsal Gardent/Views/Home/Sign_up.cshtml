@@ -1,0 +1,132 @@
+﻿@model Bonsal_Gardent.Models.AccCustomer
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+<style>
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+    .container {
+        padding: 15px;
+        width: 75%;
+    }
+
+    form {
+        border: 3px solid #f1f1f1;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+</style>
+
+<script>
+    function validateForm() {
+        let x = document.forms["myForm"]["password"].value;
+        //if (x.Le) {
+        //    alert("Name must be filled out");
+        //    return false;
+        //}
+        alert(x.length());
+
+    }
+</script>
+
+<body>
+    
+
+    <h4>After you sign up then you can login for Shopping.</h4>
+    <form action="@Url.Action("Register","Home")" method="post">
+
+        <div style="text-align: center"><h2>Create your Account before Shopping cart.</h2></div>
+        <div class="container">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"><b>Name</b></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter Username" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"><b>Password</b></label>
+                <input min="6" maxlength="15" name="password" asp-for="Password" class="form-control" placeholder="Enter Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <label for="psw-repeat"><b>Re_Password</b></label>
+            <input type="password" placeholder="Enter Password" name="re-password" required>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"><b>Email</b></label>
+                <input  asp-for="Email" class="form-control" placeholder="Enter Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"><b>Phone</b></label>
+                <input asp-for="Phone" class="form-control" placeholder="Enter Phone" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"><b>Address</b></label>
+                <input asp-for="Address" class="form-control" placeholder="Enter Address" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            @*
+            <label for="email"><b>Email</b></label>
+            <input style="width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; box-sizing: border-box;" type="email" placeholder="Enter Email" name="email" required>
+
+            <label for="psw-repeat"><b>Name</b></label>
+            <input type="text" placeholder="Name" name="name" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <label for="psw-repeat"><b>Re_Password</b></label>
+            <input type="password" placeholder="Enter Password" name="" required>
+
+            <label for="Phone"><b>Phone</b></label>
+            <input style="width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; box-sizing: border-box;" type="number" placeholder="Phone" name="phone" required>
+
+            <label for="psw-repeat"><b>Address</b></label>
+            <input type="text" placeholder="Address" name="address" required>
+            *@
+        </div>
+        <div class="container" style="background-color:#f1f1f1">
+            <label>
+                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+            </label>
+            <div class="clearfix">
+                <button type="submit" class="signupbtn">Sign Up</button>
+                <div style="text-align: center">
+                    @if(ViewData["mes"] != null){
+                        <h5 style="color: red">@ViewData["mes"]</h5>
+                    }
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center">
+            .
+        </div>
+    </form>
+
+</body>
