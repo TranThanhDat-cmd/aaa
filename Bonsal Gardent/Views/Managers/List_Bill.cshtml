@@ -1,6 +1,4 @@
-﻿@{
-    var total = 0;
-}
+﻿
 <style>
 
 </style>
@@ -69,17 +67,18 @@
             </div>
         </div>
     </div>*@
-    <div class="row">
+    <div class="container-fluid admin-artcles" style="text-align:center">
         <div class="col-lg-12">
             <div class="shoping__cart__table">
-                <table>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="background-color: white">
                     <thead>
                         <tr>
-                            <th>Đơn hàng</th>
-                            <th>Tổng tiền</th>
-                            <th>Ngày đặt</th>
-                            <th>Trạng thái</th>
-                            <th>Xem chi tiết</th>
+                            <th>Order</th>
+                            <th>User (Customer)</th>
+                            <th>Total money</th>
+                            <th>Total amount</th>
+                            <th>Time checkout</th>
+                            <th>View detail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,67 +89,64 @@
                                     <input type="hidden" value="@item.Id" name="OrderId" />
                                     <p>Đơn hàng @item.Id</p>
                                 </td>
-                                <td class="shoping__cart__price">
-                                    @item.Total.ToString("0#,##0")đ
+                                <td>
+                                    <p>@item.CustomerName</p>
                                 </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div>
-                                            @item.CreatedAt.ToString("dd-MM-yyyy HH:mm")
-                                        </div>
-                                    </div>
+                                <td>
+                                    @item.TotalMoney.ToString("0#,##0")đ
                                 </td>
-                                <td class="shoping__cart__total">
-                                    @item.Status
+                                <td>
+                                    @item.TotalAmount
                                 </td>
-                                <td class="shoping__cart__item__close">
+                                <td>
+                                    @item.CreateAtTime.ToString("dd-MM-yyyy HH:mm")
+                                </td>
+                                <td>
                                     <a href="javascript:{}" id="order-@item.Id" onclick="showOrderDetails(@item.Id)"><span class="fa fa fa-caret-down"></span></a>
                                 </td>
                             </tr>
                             <tr style="display: none">
-                                <td colspan="5" style="padding : 0; background-color: #ccc">
+                                <td colspan="1"></td>
+                                <td colspan="4">
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>Sản phẩm</th>
-                                                <th>Giá</th>
-                                                <th>Số lượng</th>
-                                                <th>Thành tiền</th>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th>Amount</th>
+                                                <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var i in item.OrderDetails)
+                                            @foreach (var i in item.Items)
                                             {
                                                 <tr>
-                                                    <td class="shoping__cart__item" style="text-align: left !important;width:40% !important">
+                                                    <td style="text-align: center !important;width:40% !important">
                                                         <input type="hidden" value="@i.Product.Id" name="ProductId" />
                                                         <input type="hidden" value="@i.Id" name="CartId" />
-                                                        <img src="~/img/product/@i.Product.Image" alt="" style="width:20%; margin-right:0; padding-left:16px">
+                                                       
                                                         <h5>@i.Product.Name</h5>
                                                     </td>
-                                                    <td class="shoping__cart__price">
-                                                        @i.Product.Price.ToString("0#,##0")đ
+                                                    <td>
+                                                        @(i.Product.Price) đ
                                                     </td>
-                                                    <td class="shoping__cart__quantity">
+                                                    <td>
                                                         <div class="quantity">
                                                             <div>
-                                                                <input type="text" disabled value="@i.Quantity" name="Quantity"
+                                                                <input type="text" disabled value="@i.Amount" name="Quantity"
                                                                style="padding: 4px 8px;width: 50%;text-align: center;" />
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="shoping__cart__total">
-                                                        @{
-                                                            total += i.Product.Price * i.Quantity;
-                                                        }
-                                                        @((i.Product.Price * i.Quantity).ToString("0#,##0"))đ
+                                                    <td>
+                                                        @((int.Parse(i.Product.Price) * i.Amount).ToString("0#,##0"))đ
                                                     </td>
                                                 </tr>
                                             }
-
                                         </tbody>
                                     </table>
                                 </td>
+                                <td colspan="1"></td>
                             </tr>
                         }
                     </tbody>

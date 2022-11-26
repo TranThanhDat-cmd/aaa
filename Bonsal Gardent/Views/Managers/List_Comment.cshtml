@@ -31,7 +31,7 @@
                                     Time
                                 </th>
                                 <th>
-                                    On Page
+                                    Product
                                 </th>
                                 <th>
                                     Option
@@ -39,23 +39,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    Delete |
-                                    Approval
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        Delete |
+                                        Approval
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

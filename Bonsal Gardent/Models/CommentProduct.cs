@@ -11,6 +11,8 @@ namespace Bonsal_Gardent.Models
         public string Answer { get; set; } = null!;
         public int? ProductId { get; set; }
         public int AccCustomerId { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public bool IsApprove { get; set; } = false;
 
         public virtual AccCustomer AccCustomer { get; set; } = null!;
         public virtual AccManager? AccManager { get; set; }
