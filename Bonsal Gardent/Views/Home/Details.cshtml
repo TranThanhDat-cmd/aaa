@@ -292,104 +292,45 @@
 		<div class="col-md-12 bootstrap snippets">
 			<div class="panel">
 				<div class="panel-body">
-					<textarea class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
+					<form asp-action="Add" asp-controller="Comment">
+					<input type="hidden" value="@Model.Id" name="id"/>
+					<textarea name="content" class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
 					<div class="mar-top clearfix">
 						<button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Submit</button>
-						<a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
-						<a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
-						<a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
 					</div>
+					</form>
 				</div>
 			</div>
 			<div class="panel">
 				<div class="panel-body">
 					<!-- Newsfeed Content -->
 					<div class="media-block">
-						<a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
-						<div class="media-body">
-							<div class="mar-btm">
-								<a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D.</a>
-								<p class="text-muted text-sm"><i class="fa fa-lg">- User -</i>11 min ago</p>
-							</div>
-							<p>consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-							<div class="pad-ver">
-								<a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
-							</div>
-							<hr>
-
-							<!-- Comments -->
-							<div>
-								<div class="media-block">
-									<a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar2.png"></a>
-									<div class="media-body">
-										<div class="mar-btm">
-											<a href="#" class="btn-link text-semibold media-heading box-inline">Bobby Marz</a>
-											<p class="text-muted text-sm"><i class="fa fa-lg">- Admin - </i>7 min ago</p>
-										</div>
-										<p>Sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-										<div class="pad-ver">
-											<a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
-										</div>
-										<hr>
-									</div>
+						@foreach (var item in Model.CommentProducts)
+						{
+							<a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
+							<div class="media-body">
+								<div class="mar-btm">
+									<a href="#" style="padding-left:10px" class="btn-link text-semibold media-heading box-inline"> @item.AccCustomer.Name</a>
+									<p style="padding-left:10px" class="text-muted text-sm"><i class="fa fa-lg"></i>   @item.CreatedAt</p>
 								</div>
+								<p>
+									@item.Content
+								</p>
 
-								<div class="media-block">
-									<a class="media-left" href="#">
-										<img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar3.png">
-									</a>
-									<div class="media-body">
-										<div class="mar-btm">
-											<a href="#" class="btn-link text-semibold media-heading box-inline">Lucy Moon</a>
-											<p class="text-muted text-sm"><i class="fa fa-lg">- User - </i>2 min ago</p>
-										</div>
-										<p>Duis autem vel eum iriure dolor in hendrerit in vulputate ?</p>
-										<div class="pad-ver">
-											<a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
-										</div>
-										<hr>
-									</div>
-								</div>
+								<hr>
+
+								<!-- Comments -->
+
 							</div>
-						</div>
+						}
+
+						
 					</div>
 					<!--===================================================-->
 					<!-- End Newsfeed Content -->
 					<!-- Newsfeed Content -->
 					<!--===================================================-->
-					<div class="media-block pad-all">
-						<a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
-						<div class="media-body">
-							<div class="mar-btm">
-								<a href="#" class="btn-link text-semibold media-heading box-inline">John Doe</a>
-								<p class="text-muted text-sm"><i class="fa fa-lg">- User -</i>11 min ago</p>
-							</div>
-							<p>Lorem ipsum dolor sit amet.</p>
-							<img class="img-responsive thumbnail" src="https://via.placeholder.com/400x300" alt="Image">
-							<div class="pad-ver">
-								<span class="tag tag-sm"><i class="fa fa-heart text-danger"></i> 250 Likes</span>
-								<a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
-							</div>
-							<hr>
-
-							<!-- Comments -->
-							<div>
-								<div class="media-block pad-all">
-									<a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar2.png"></a>
-									<div class="media-body">
-										<div class="mar-btm">
-											<a href="#" class="btn-link text-semibold media-heading box-inline">Maria Leanz</a>
-											<p class="text-muted text-sm"><i class="fa fa-lg">- Admin - </i>2 min ago</p>
-										</div>
-										<p>Duis autem vel eum iriure dolor in hendrerit in vulputate ?</p>
-										<div>
-											<a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 					<!--===================================================-->
 					<!-- End Newsfeed Content -->
 				</div>
