@@ -105,7 +105,7 @@ namespace Bonsal_Gardent.Controllers
                 return RedirectToAction("Login", "Home");
             }
             var comments = await _context.CommentProducts.Include(x => x.AccCustomer).
-                Include(x => x.Product).Where(x => x.IsApprove == false).OrderByDescending(x => x.CreatedAt).ToListAsync();
+                Include(x => x.Product).OrderByDescending(x => x.CreatedAt).ToListAsync();
             return View(comments);
         }
         public IActionResult Product()
@@ -114,7 +114,7 @@ namespace Bonsal_Gardent.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            return View();
+            return RedirectToAction("Manager_Product", "Managers");
         }
 
         public async Task<IActionResult> Approval(int? id)
@@ -123,7 +123,21 @@ namespace Bonsal_Gardent.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            return View();
+            if (id != null)
+            {
+                var commentProduct = await _context.CommentProducts.FirstOrDefaultAsync(x => x.Id == id);
+                commentProduct.IsApprove = true;
+            }
+            else
+            {
+                var commentProducts = await _context.CommentProducts.Where(x => x.IsApprove == false).ToListAsync();
+                foreach (var item in commentProducts)
+                {
+                    item.IsApprove = true;
+                }
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("List_Comment", "Managers");
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -132,8 +146,19 @@ namespace Bonsal_Gardent.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            var gardent_BonsalContext = _context.Products.Include(p => p.Category).Include(p => p.Type);
-            return View(await gardent_BonsalContext.ToListAsync());
+            
+            if (id != null)
+            {
+                var commentProduct = await _context.CommentProducts.FirstOrDefaultAsync(x => x.Id == id);
+                _context.CommentProducts.Remove(commentProduct);
+            }
+            else
+            {
+                var commentProducts = await _context.CommentProducts.ToListAsync();
+                _context.CommentProducts.RemoveRange(commentProducts);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("List_Comment", "Managers");
         }
     }
 }

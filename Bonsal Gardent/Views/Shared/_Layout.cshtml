@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="~/Bonsal_Gardent.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body{
+        body {
             background-color: #78ebab;
         }
-        .fa{
+
+        .fa {
             display: inline-block;
             font: normal normal normal 14px/1 FontAwesome;
             text-rendering: auto;
@@ -34,9 +35,12 @@
                 <tr>
                     <td class="logo" style="width:12%"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/image/2022-09-24_140746.png" alt="" height="90" width="90"></a></td>
                     <td style="text-align:center"><h1>Gardent Bonsai</h1><h3>The tree environment will be better for you</h3></td>
-                    @if(Context.Session.GetString("name") == null){
+                    @if (Context.Session.GetString("name") == null)
+                    {
                         <td style="left:20%"><a class="nav-link button" asp-area="" asp-controller="Home" asp-action="Login">Login</a></td>
-                    }else{
+                    }
+                    else
+                    {
                         <td style="left:20%"><a class="nav-link button" asp-controller="Home" asp-action="Profile">@Context.Session.GetString("name")!.ToString()</a></td>
                     }
                 </tr>
@@ -50,28 +54,32 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
-                        <li>
-                            _
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Product">Product</a>
-                        </li>
+                        @if (Context.Session.GetString("role") == null || Context.Session.GetString("role")!.ToString() == "Customer")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            </li>
+                            <li>
+                                _
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Product">Product</a>
+                            </li>
+                        }
+
                     </ul>
 
 
 
                     <ul class="navbar-nav">
-                        
+
                         @if (Context.Session.GetString("role") != null && Context.Session.GetString("role")!.ToString() != "Customer")
                         {
                             <li class="nav-item">
 
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Managers" asp-action="Manager_View">Manager</a>
-                            
-                            
+
+
                             </li>
                         }
                         else if (Context.Session.GetString("role") != null && Context.Session.GetString("role")!.ToString() == "Customer")

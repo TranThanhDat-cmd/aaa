@@ -136,7 +136,7 @@ namespace Bonsal_Gardent.Controllers
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string error = "")
         {
             if (id == null || _context.Products == null)
             {
@@ -151,7 +151,7 @@ namespace Bonsal_Gardent.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Error"] = error;
             return View(product);
         }
 
@@ -169,8 +169,14 @@ namespace Bonsal_Gardent.Controllers
             {
                 _context.Products.Remove(product);
             }
-
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Delete), new {id,error = "The product cannot be deleted, it may already exist in the cart or has been ordered" });
+            }
             return RedirectToAction("Manager_Product", "Home");
         }
 

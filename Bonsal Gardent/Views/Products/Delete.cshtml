@@ -11,6 +11,7 @@
 <div>
     <h4>Product</h4>
     <hr />
+    <h3 style="color:red">@ViewData["Error"]</h3>
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -66,6 +67,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-controller="Home" asp-action="Manager_Product">Back to List</a>
+        <a asp-controller="Managers" asp-action="Manager_Product">Back to List</a>
     </form>
 </div>
